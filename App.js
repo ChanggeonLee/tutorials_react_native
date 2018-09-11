@@ -11,33 +11,17 @@ import User from './components/user.js'
 import ButtonGroup  from './components/buttonGroup.js'
 import NavBar from './components/navBar.js'
 import Taps from './components/tap.js'
+import AddToDo from './components/add_todo.js'
 
 import {
-  StyleSheet, 
-  View,
 } from 'react-native';
 
 
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <NavBar />
-        <User />
-        <View style={{height: 40}}>
-        </View>
-        <ButtonGroup />
-        <View style={{flex: 1}}>
-        </View>
-        <Taps />
-      </View>
+      <AddToDo />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-});
