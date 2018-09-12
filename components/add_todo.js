@@ -18,11 +18,30 @@ export default class AddToDo extends Component{
   }
 
   addTodo() {
-    let todoItem = this.state.inputText
+    let todoItem = {
+      context: this.state.inputText,
+      complete: false
+    }
     let todos = this.state.todos
     todos.push(todoItem)
     this.setState({
       inputText:'',
+      todos: todos,
+    })
+  }
+
+  completeTodo(index) {
+    let todos = this.state.todos
+    todos[index].complete = !todos[index].complete
+    this.setState({
+      todos: todos,
+    })
+  }
+
+  deleteTodo(index) {
+    let todos = this.state.todos
+    todos.splice(index,1)
+    this.setState({
       todos: todos,
     })
   }
@@ -37,7 +56,6 @@ export default class AddToDo extends Component{
           }}
           value={this.state.inputText}
           />
-
         <TouchableOpacity onPress={this.addTodo.bind(this)}>
           <Text> 
             add Todo
@@ -46,9 +64,17 @@ export default class AddToDo extends Component{
         {
           this.state.todos.map((todoItem, index)=> {
             return (
-              <Text key={index}>
-                {todoItem}
-              </Text>
+              <View key={index} style={{flexDirection: 'row'}}>
+                <Text style={todoItem.complete ? {textDecorationLine: 'line-through'} : {textDecorationLine: 'none'}}>
+                  {todoItem.context}  
+                </Text>
+                <TouchableOpacity onPress={this.completeTodo.bind(this, index)}>
+                  <Text>{todoItem.complete ? "---complete" : "---incomplete"}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.deleteTodo.bind(this, index)}>
+                  <Text>  delete</Text>
+                </TouchableOpacity>
+              </View>
             )
           })
         }
